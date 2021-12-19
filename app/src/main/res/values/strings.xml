@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ma02_20190980</string>
+
+    <string name="bm_poo1">딱딱한 변</string>
+    <string name="bm_poo2">촉촉한 변</string>
+    <string name="bm_poo3">진흙같은 변</string>
+    <string name="bm_poo4">물같은 변</string>
+</resources>

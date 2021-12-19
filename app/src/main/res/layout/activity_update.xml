@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/brown"
+        >
+
+        <ImageView
+            android:id="@+id/ivCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10px"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:gravity="center"
+            android:padding="10px"
+            android:text="배변 상태 기록 수정하기"
+            android:textColor="@color/dark_brown"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            android:layout_width="6dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10px"
+            android:text="저장" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="411dp"
+        android:layout_height="580dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="기록 날짜"
+                    android:textColor="@color/dark_brown"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvDatePicker"
+                    android:layout_width="125dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center_vertical"
+                    android:hint="날짜 입력"
+                    android:inputType="date" />
+
+                <ImageButton
+                    android:id="@+id/imgBtnDate"
+                    android:layout_width="68dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@color/white"
+                    android:onClick="onClick"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@mipmap/calendar_icon" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/low"
+                ></View>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="오눌 하루 기분은 어떠세요?"
+                android:textColor="@color/dark_brown" />
+
+            <RadioGroup
+                android:id="@+id/rgCondition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rBtnGood"
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow_brown"
+                    android:text="좋아요!" />
+
+                <RadioButton
+                    android:id="@+id/rBtnJust"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow_brown"
+                    android:text="보통" />
+
+                <RadioButton
+                    android:id="@+id/rBtnBad"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow_brown"
+                    android:text="나빠요." />
+
+                <RadioButton
+                    android:id="@+id/rBtnSad"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow_brown"
+                    android:text="슬퍼요..." />
+
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/low"
+                ></View>
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="오늘 운동을 하셨나요?"
+                android:textColor="@color/dark_brown" />
+
+            <RadioGroup
+                android:id="@+id/rgHealth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rBtnHealthYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/yellow_brown"
+                    android:text="네(불끈)" />
+
+
+                <RadioButton
+                    android:id="@+id/rBtnHealthNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/yellow_brown"
+                    android:text="아니요" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/low"
+                ></View>
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="배변 활동이 있으셨나요?"
+                android:textColor="@color/dark_brown" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnBMYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10px"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/low"
+                    android:onClick="onClick"
+                    android:text="예"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnBMNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10px"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/low"
+                    android:onClick="onClick"
+                    android:text="아니오"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutPoo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/low"
+                    ></View>
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="배변 상태는 어떠신가요?"
+                    android:textColor="@color/dark_brown"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0, 1">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btnPoo1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableTop="@mipmap/poo1"
+                            android:onClick="onClick"
+                            android:text="딱딱한 변"
+                            android:textColor="@color/dark_brown" />
+
+                        <Button
+                            android:id="@+id/btnPoo2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableTop="@mipmap/poo2"
+                            android:onClick="onClick"
+                            android:text="촉촉한 변"
+                            android:textColor="@color/dark_brown" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btnPoo3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableTop="@mipmap/poo3"
+                            android:onClick="onClick"
+                            android:text="진흙같은 변"
+                            android:textColor="@color/dark_brown" />
+
+                        <Button
+                            android:id="@+id/btnPoo4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="#FFFFFF"
+                            android:drawableTop="@mipmap/poo4"
+                            android:onClick="onClick"
+                            android:text="물같은 변"
+                            android:textColor="@color/dark_brown" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </TableLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/low"
+                    ></View>
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="배변 시간"
+                    android:textColor="@color/dark_brown" />
+
+                <EditText
+                    android:id="@+id/etTime"
+                    android:layout_width="109dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="1~24 시"
+                    android:inputType="number" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:background="@color/low"
+                    ></View>
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="잔변감"
+                    android:textColor="@color/dark_brown" />
+
+                <RadioGroup
+                    android:id="@+id/rgSmallBM"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/rBtnBMYes"
+                        android:layout_width="74dp"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/yellow_brown"
+                        android:text="있음" />
+
+                    <RadioButton
+                        android:id="@+id/rBtnBMNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/yellow_brown"
+                        android:text="없음" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
