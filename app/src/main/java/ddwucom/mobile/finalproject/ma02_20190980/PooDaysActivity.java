@@ -75,6 +75,8 @@ public class PooDaysActivity extends AppCompatActivity {
 
             case R.id.btnMap:
                 // 화장실 맵 API Activity
+                Intent intent = new Intent(this, ToiletMapActivity.class);
+                startActivity(intent);
                 break;
         }
     }
