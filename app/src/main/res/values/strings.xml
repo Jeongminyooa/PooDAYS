@@ -15,4 +15,7 @@
     <!-- Naver Map API -->
     <string name="client_id">6e6za8qjtb</string>
     <string name="client_secret">BOidZZH166TwUMPGtNxEn2Uhjd0GGMSYkY0SglqH</string>
+
+    <!-- 공공 데이터 : 화장실 API -->
+    <string name="toilet_api_link">http://openapi.gimje.go.kr/rest/toilet?ServiceKey=2JZBvMKM7VNypH9wDEArOt4pM8UurYE%2BjapRRTtyqori77FqgnNeTtkC8ehwywAP5HwFCx%2BlwPE8oHi%2FFPLctQ%3D%3D</string>
 </resources>
