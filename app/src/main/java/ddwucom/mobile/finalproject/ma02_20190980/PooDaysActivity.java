@@ -16,7 +16,7 @@ public class PooDaysActivity extends AppCompatActivity {
     static final String TAG = "pooDAYS";
     Calendar c = Calendar.getInstance();
     int nYear = c.get(Calendar.YEAR);
-    int nMon = c.get(Calendar.MONTH) + 1;
+    int nMon = c.get(Calendar.MONTH);
     int nDay = c.get(Calendar.DAY_OF_MONTH) + 1;
 
     private TextView tvTodayDate;

@@ -1,6 +1,8 @@
 package ddwucom.mobile.finalproject.ma02_20190980;
 
-public class ToiletDTO {
+import java.io.Serializable;
+
+public class ToiletDTO implements Serializable {
     public String dataTitle;
     public String manTel;
     public String mw;

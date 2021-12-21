@@ -1,18 +1,20 @@
 package ddwucom.mobile.finalproject.ma02_20190980;
 
-import static java.lang.Math.sin;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,10 +25,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
@@ -34,13 +33,16 @@ public class ToiletMapActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
 
-    LocationManager locationManager;
+     LocationManager locationManager;
 
-    PooNetworkManager networkManager;
-    ToiletXmlParser parser;
-    ArrayList<ToiletDTO> resultList;
+     PooNetworkManager networkManager;
+    private ToiletXmlParser parser;
+    private ArrayList<ToiletDTO> resultList;
 
-    GoogleMap mGoogleMap;
+    private GoogleMap mGoogleMap;
+
+    private LatLng currentLoc;
+     MarkerOptions markerOptions;
 
 
     @Override
@@ -52,7 +54,7 @@ public class ToiletMapActivity extends AppCompatActivity {
 
         networkManager =  new PooNetworkManager(this);
         parser = new ToiletXmlParser();
-        resultList = new ArrayList();
+        resultList = new ArrayList<>();
 
         // 1) map 객체 준비
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
@@ -62,38 +64,55 @@ public class ToiletMapActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if(checkPermission())
-            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 3000, 5, locationListener);
 
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // 마커 삭제
 
-        // 마커 , 선 다 삭제
-
-    }
     // map 로딩이 완료되면 자동으로 호출
     OnMapReadyCallback mapReadyCallBack = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             // 맵 정보가 로딩된 GoogleMap 객체를 가져옴.
             mGoogleMap = googleMap;
-        }
-    }
 
+            if(checkPermission()) {
+                mGoogleMap.setMyLocationEnabled(true);
+            }
+
+            mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    ToiletDTO dto = (ToiletDTO) marker.getTag();
+
+                    Intent intent = new Intent(ToiletMapActivity.this, InfoActivity.class);
+                    intent.putExtra("toiletData", dto);
+                    startActivity(intent);
+                }
+            });
+        }
+    };
+
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            currentLoc = new LatLng(location.getLatitude(), location.getLongitude());
+
+            Log.d("TAG_ACTI", "d" + currentLoc.latitude);
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 17));
+
+            // 근처 화장실 정보 가져와 마커로 표시하는 메소드
+           // getToiletInfo();
+        }
+    };
     public void getToiletInfo() {
         String query = getString(R.string.toilet_api_link);
 
-        try {
-            // encoding이 제대로 안되는 예외 상황 발생
-            new NetworkAsyncTask().execute(apiAddress
-                    + URLEncoder.encode(query, "UTF-8"));
-        } catch (UnsupportedEncodingException e) { e.printStackTrace(); }
+        new NetworkAsyncTask().execute(query);
+
         return;
     }
 
-    class NetworkAstncTask extends AsyncTask<String, Integer, String> {
+    class NetworkAsyncTask extends AsyncTask<String, Integer, ArrayList<ToiletDTO>> {
         ProgressDialog progressDlg;
 
         @Override
@@ -102,27 +121,43 @@ public class ToiletMapActivity extends AppCompatActivity {
             progressDlg = ProgressDialog.show(ToiletMapActivity.this, "Wait", "Downloading...");
         }
         @Override
-        protected String doInBackground(String... strings) {
+        protected ArrayList<ToiletDTO> doInBackground(String... strings) {
             String address = strings[0];
             String result = null;
             // networking
             result = networkManager.downloadContents(address);
-            if (result == null) return "Error";
+            if (result == null)
+                return null;
 
-            // parsing - 수행시간이 많이 걸릴 경우 이곳(스레드 내부)에서 수행하는 것을 고려
-            // parsing 을 이곳에서 수행할 경우 AsyncTask의 반환타입을 적절히 변경
             resultList = parser.parse(result);
 
-            return result;
+            ArrayList<ToiletDTO> currentToilet = new ArrayList<ToiletDTO>();
+            for(ToiletDTO dto : resultList) {
+                // 현재 위치의 경도&위도와 화장실의 위도 경도 계산해서 일정 거리라면 어레이리스트(새로 만들어)에 추가
+                int distance = getDistance(currentLoc.latitude, dto.getPosy(), currentLoc.longitude, dto.getPosx());
+
+                // 현재 위치와 화장실의 위치가 1000m 이내라면
+                if(distance <= 1000) {
+                    currentToilet.add(dto);
+                }
+            }
+            return currentToilet;
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            // parsing - 수행시간이 짧을 경우 이 부분에서 수행하는 것을 고려
-            //resultList = parser.parse(result);
-            for(ToiletDTO dto : resultList) {
-                // 현재 위치의 경도&위도와 화장실의 위도 경도 계산해서 일정 거리라면 어레이리스트(새로 만들어)에 추가
+        protected void onPostExecute(ArrayList<ToiletDTO> result) {
+            for(ToiletDTO dto : result) {
+                //마커 옵션 정의
+                markerOptions = new MarkerOptions();
+                markerOptions.position(currentLoc);
+                markerOptions.title(dto.getDataTitle());
+                markerOptions.snippet("개방시간 : " + dto.getOpenTime());
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                Marker newMarker = mGoogleMap.addMarker(markerOptions);
+                // 해당 화장실 정보를 tag에 넣는다.
+                newMarker.setTag(dto);
             }
+
             progressDlg.dismiss();
         }
 
@@ -142,4 +177,16 @@ public class ToiletMapActivity extends AppCompatActivity {
         }
     }
 
+    public boolean checkPermission() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+                return true;
+            }
+        }
+        return false;
+    }
 }
