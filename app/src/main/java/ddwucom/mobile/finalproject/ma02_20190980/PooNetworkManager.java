@@ -3,6 +3,7 @@ package ddwucom.mobile.finalproject.ma02_20190980;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class PooNetworkManager {
         } finally {
             if (conn != null) conn.disconnect();
         }
-
+        Log.d("network", result);
         return result;
     }
     /* InputStream을 전달받아 문자열로 변환 후 반환 */

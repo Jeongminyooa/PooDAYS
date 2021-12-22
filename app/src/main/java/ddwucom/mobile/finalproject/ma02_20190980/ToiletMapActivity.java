@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -44,6 +44,7 @@ public class ToiletMapActivity extends AppCompatActivity {
     private LatLng currentLoc;
      MarkerOptions markerOptions;
 
+     public static final String TAG = "Toilet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +57,21 @@ public class ToiletMapActivity extends AppCompatActivity {
         parser = new ToiletXmlParser();
         resultList = new ArrayList<>();
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         // 1) map 객체 준비
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         // data가 언제 로딩될지 몰라 비동기적으로 Map 정보를 얻어옴 - network로 map image 집합 정보를 가져온다.
         mapFragment.getMapAsync(mapReadyCallBack);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         if(checkPermission())
-            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 3000, 5, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 5, locationListener);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        locationManager.removeUpdates(locationListener);
     }
 
     // map 로딩이 완료되면 자동으로 호출
@@ -75,6 +81,7 @@ public class ToiletMapActivity extends AppCompatActivity {
             // 맵 정보가 로딩된 GoogleMap 객체를 가져옴.
             mGoogleMap = googleMap;
 
+            currentLoc = getLastLocation();
             if(checkPermission()) {
                 mGoogleMap.setMyLocationEnabled(true);
             }
@@ -97,11 +104,11 @@ public class ToiletMapActivity extends AppCompatActivity {
         public void onLocationChanged(@NonNull Location location) {
             currentLoc = new LatLng(location.getLatitude(), location.getLongitude());
 
-            Log.d("TAG_ACTI", "d" + currentLoc.latitude);
+            Log.d(TAG, "현재 위치 정보 가져옴!" + currentLoc.latitude);
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 17));
 
             // 근처 화장실 정보 가져와 마커로 표시하는 메소드
-           // getToiletInfo();
+           getToiletInfo();
         }
     };
     public void getToiletInfo() {
@@ -129,6 +136,7 @@ public class ToiletMapActivity extends AppCompatActivity {
             if (result == null)
                 return null;
 
+            Log.d(TAG, result);
             resultList = parser.parse(result);
 
             ArrayList<ToiletDTO> currentToilet = new ArrayList<ToiletDTO>();
@@ -177,16 +185,40 @@ public class ToiletMapActivity extends AppCompatActivity {
         }
     }
 
+    public LatLng getLastLocation() {
+        if(checkPermission()) {
+            Location lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if(lastLocation != null)
+                return new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+        }
+        return new LatLng(37.606320, 127.041808);
+    }
     public boolean checkPermission() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
                 requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+                return false;
+            } else
                 return true;
-            }
         }
         return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "위치 권환 획득", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "위치 권환 미획득", Toast.LENGTH_SHORT).show();
+                }
+                return;
+        }
     }
 }
