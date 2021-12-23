@@ -8,6 +8,7 @@ dependencyResolutionManagement {
             url 'https://naver.jfrog.io/artifactory/maven/'
         }
         maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/'}
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "ma02_20190980"

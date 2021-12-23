@@ -24,6 +24,7 @@ public class PooDBManager {
         adapter.changeCursor(cursor);
         pooDBHelper.close();
     }
+
     // id 에 해당하는 기록 가져오기
     public PooDTO getPooById(long _id) {
         SQLiteDatabase db = pooDBHelper.getReadableDatabase();
@@ -46,6 +47,7 @@ public class PooDBManager {
             dto.setTime(cursor.getString(cursor.getColumnIndexOrThrow(PooDBHelper.COL_TIME)));
             dto.setSmallBM(cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_SmallBM)));
         }
+        pooDBHelper.close();
         return dto;
     }
 
@@ -133,6 +135,51 @@ public class PooDBManager {
                     dto.setBM(cursor.getString(cursor.getColumnIndexOrThrow(PooDBHelper.COL_BM)));
             }
         }
+        pooDBHelper.close();
         return dto;
+    }
+    // 해당 날짜 범위의 배변 유무 가져오기
+    public ArrayList<PooDTO> findMonthIsPoo(String date) {
+        SQLiteDatabase db = pooDBHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + PooDBHelper.TABLE_NAME + " WHERE date LIKE '" + date + "%';", null);
+
+        ArrayList<PooDTO> pooList = new ArrayList<PooDTO>();
+        while(cursor.moveToNext()) {
+            // 가져오는 코드 작성!
+            PooDTO dto = new PooDTO();
+
+            dto.setDate(cursor.getString(cursor.getColumnIndexOrThrow(PooDBHelper.COL_DATE)));
+            dto.setIsPoo(cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_ISPOO)));
+
+            pooList.add(dto);
+        }
+
+        pooDBHelper.close();
+        return pooList;
+    }
+
+    // 해당 날짜의 기록 id 가져오기
+    public int findIdByDate(String date) {
+        SQLiteDatabase db = pooDBHelper.getReadableDatabase();
+
+        String selection = PooDBHelper.COL_DATE + "=?";
+        String[] selectArgs = new String[] { date };
+
+        Cursor cursor = db.query(PooDBHelper.TABLE_NAME, null, selection, selectArgs, null, null, null, null);
+
+        PooDTO dto = new PooDTO();
+
+        // 기록이 없다면
+        if (cursor == null) {
+            return 0;
+        } else {
+            if(cursor.moveToNext()) {
+                // 가져오는 코드 작성!
+                return cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_ID));
+            }
+        }
+        pooDBHelper.close();
+        return 0;
     }
 }
