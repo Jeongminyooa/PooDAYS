@@ -22,12 +22,18 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:text="My Poo Record"
+            android:gravity="center"
+            android:padding="10px"
+            android:textColor="@color/dark_brown"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnAddInRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/dark_brown"
+            android:layout_marginLeft="50dp"
+            android:onClick="onClick"
             android:layout_marginTop="8dp"
             android:text="상태 기록 추가하기" />
 
@@ -49,18 +55,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/dark_brown"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/dark_brown"
             android:onClick="onClick"
             android:text="메인"
-            android:textColor="@color/low" />
+             />
 
         <Button
             android:id="@+id/btnRecord"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/dark_brown"
+            android:backgroundTint="@color/dark_brown"
+            android:textColor="@color/low"
             android:onClick="onClick"
             android:text="기록" />
 
@@ -87,8 +94,8 @@
 
     <ListView
         android:id="@+id/listViewPoo"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_width="405dp"
+        android:layout_height="514dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />

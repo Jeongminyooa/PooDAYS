@@ -9,18 +9,18 @@
         android:id="@+id/tvBM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="84dp"
-        android:text="배변 상태"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="76dp"
+        android:text="배변 상태\n"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivBM"
-        android:layout_width="79dp"
-        android:layout_height="70dp"
+        android:layout_width="59dp"
+        android:layout_height="60dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

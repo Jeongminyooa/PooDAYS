@@ -43,8 +43,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="413dp"
+        android:layout_height="448dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,18 +54,28 @@
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:text="나의 장 한 눈에 보기"
             android:textColor="@color/dark_brown"
             android:textSize="20sp" />
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="314dp"
+            android:layout_height="282dp"
+            android:layout_gravity="center"
+            app:mcv_selectionColor="@color/brown"
+            app:mcv_showOtherDates="all" />
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:backgroundTint="@color/dark_brown"
             android:onClick="onClick"
             android:text="상태 기록 추가하기"
@@ -100,9 +110,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:textColor="@color/dark_brown"
             android:onClick="onClick"
-            android:text="기록" />
+            android:text="기록"
+            android:textColor="@color/dark_brown" />
 
         <Button
             android:id="@+id/btnInfo"
@@ -110,9 +120,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:textColor="@color/dark_brown"
             android:onClick="onClick"
-            android:text="건강정보" />
+            android:text="건강정보"
+            android:textColor="@color/dark_brown" />
 
         <Button
             android:id="@+id/btnMap"
@@ -120,8 +130,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:textColor="@color/dark_brown"
             android:onClick="onClick"
-            android:text="화장실 지도" />
+            android:text="화장실 지도"
+            android:textColor="@color/dark_brown" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

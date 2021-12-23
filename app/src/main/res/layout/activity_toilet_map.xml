@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent">
@@ -19,7 +19,23 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="근처 화장실 정보" />
+                android:gravity="center"
+                android:padding="10px"
+                android:text="근처 화장실 정보"
+                android:textColor="@color/dark_brown"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnBookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="@color/dark_brown"
+                android:drawableRight="@android:drawable/star_big_on"
+                android:onClick="onClick"
+                android:padding="10px"
+                android:text="화장실 북마크 보러가기" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,9 +45,9 @@
                 <EditText
                     android:id="@+id/etPlace"
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="match_parent"
                     android:ems="10"
-                    android:hint="ex. 여주"
+                    android:hint="도로명 주소 기입"
                     android:inputType="textPersonName" />
 
                 <Button
@@ -39,20 +55,21 @@
                     android:layout_width="156dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:backgroundTint="@color/dark_brown"
                     android:text="검색" />
 
             </LinearLayout>
 
             <fragment
-                xmlns:map="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".ToiletMapActivity"
-                />
+                android:layout_height="512dp"
+                tools:context=".ToiletMapActivity" />
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
