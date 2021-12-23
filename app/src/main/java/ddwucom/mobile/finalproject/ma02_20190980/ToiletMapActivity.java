@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -81,6 +82,17 @@ public class ToiletMapActivity extends AppCompatActivity {
         locationManager.removeUpdates(locationListener);
     }
 
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.btnSearchPlace:
+                break;
+            case R.id.btnBookmark:
+                Intent intent = new Intent(this, ToiletBookMark.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
     // map 로딩이 완료되면 자동으로 호출
     OnMapReadyCallback mapReadyCallBack = new OnMapReadyCallback() {
         @Override
@@ -101,7 +113,9 @@ public class ToiletMapActivity extends AppCompatActivity {
                 public void onInfoWindowClick(Marker marker) {
                     ToiletDTO dto = (ToiletDTO) marker.getTag();
 
-                    Intent intent = new Intent(ToiletMapActivity.this, InfoActivity.class);
+                    Log.d(TAG, dto.getToiletName() + " 으으으");
+
+                    Intent intent = new Intent(ToiletMapActivity.this, AddBookMark.class);
                     intent.putExtra("toiletData", dto);
                     startActivity(intent);
                 }
@@ -142,9 +156,10 @@ public class ToiletMapActivity extends AppCompatActivity {
         }
 
         for(ToiletDTO dto : currentToilet) {
+            LatLng markerLoc = new LatLng(dto.getLatitude(), dto.getLongitude());
             //마커 옵션 정의
             markerOptions = new MarkerOptions();
-            markerOptions.position(currentLoc);
+            markerOptions.position(markerLoc);
             markerOptions.title(dto.getToiletName());
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
             Marker newMarker = mGoogleMap.addMarker(markerOptions);
