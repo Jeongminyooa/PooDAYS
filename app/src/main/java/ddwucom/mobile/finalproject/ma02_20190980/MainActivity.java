@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText etName;
-
     final static String TAG = "MainActivity";
 
 
@@ -21,24 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etName = findViewById(R.id.etName);
+        Intent intent = new Intent(this, PooDaysActivity.class);
+
+        startActivity(intent);
 
     }
 
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.btnStart:
 
-                if(etName.getText().toString().equals("")) {
-                    Toast.makeText(this, "이름을 입력해주세요!", Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                Intent intent = new Intent(this, PooDaysActivity.class);
-                intent.putExtra("name", etName.getText().toString());
-                startActivity(intent);
-                break;
-        }
-    }
 
 
 }
