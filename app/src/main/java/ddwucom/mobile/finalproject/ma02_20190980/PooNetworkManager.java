@@ -9,8 +9,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -29,6 +33,40 @@ public class PooNetworkManager {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
+    public String downloadNaverBlog(String address, String keyword) {
+        HttpURLConnection conn = null;
+        InputStream stream = null;
+        String result = null;
+        String text = null;
+
+        try {
+            text = URLEncoder.encode(keyword, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("검색어 인코딩 실패",e);
+        }
+
+        String apiURL = address + text; // xml 결과
+
+        if (!isOnline()) return null;
+
+        try {
+            URL url = new URL(apiURL);
+            conn = (HttpURLConnection)url.openConnection();
+            /* 네이버 사용 시 설정 필요 -> HTML 요청 Header 부분에 정보 추가 */
+            conn.setRequestProperty("X-Naver-Client-Id", context.getString(R.string.naver_app_clientId));
+            conn.setRequestProperty("X-Naver-Client-Secret", context.getString(R.string.naver_app_clientSecret));
+            stream = getNetworkConnection(conn);
+            result = readStreamToString(stream);
+            if (stream != null) stream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+
+        Log.d("sdasdasd", result);
+        return result;
+    }
     /* 주소(address)에 접속하여 문자열 데이터를 수신한 후 반환 */
     public String downloadContents(String address) {
         HttpURLConnection conn = null;
@@ -48,7 +86,8 @@ public class PooNetworkManager {
         } finally {
             if (conn != null) conn.disconnect();
         }
-        Log.d("network", result);
+
+        Log.d("sdasdasd", result);
         return result;
     }
     /* InputStream을 전달받아 문자열로 변환 후 반환 */

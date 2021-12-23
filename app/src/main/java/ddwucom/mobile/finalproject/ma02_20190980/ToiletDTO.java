@@ -3,67 +3,31 @@ package ddwucom.mobile.finalproject.ma02_20190980;
 import java.io.Serializable;
 
 public class ToiletDTO implements Serializable {
-    public String dataTitle;
-    public String manTel;
-    public String mw;
-    public String openTime;
-    public double posy;
-    public double posx;
-    public String toiletArea;
+    public String ToiletName; // 화장실 이름
+    public double latitude; // 위도
+    public double longitude; // 경도
 
-    public String getDataTitle() {
-        return dataTitle;
+    public String getToiletName() {
+        return ToiletName;
     }
 
-    public void setDataTitle(String dataTitle) {
-        this.dataTitle = dataTitle;
+    public void setToiletName(String toiletName) {
+        ToiletName = toiletName;
     }
 
-    public String getManTel() {
-        return manTel;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setManTel(String manTel) {
-        this.manTel = manTel;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getMw() {
-        return mw;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setMw(String mw) {
-        this.mw = mw;
-    }
-
-    public String getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(String openTime) {
-        this.openTime = openTime;
-    }
-
-    public double getPosy() {
-        return posy;
-    }
-
-    public void setPosy(double posy) {
-        this.posy = posy;
-    }
-
-    public double getPosx() {
-        return posx;
-    }
-
-    public void setPosx(double posx) {
-        this.posx = posx;
-    }
-
-    public String getToiletArea() {
-        return toiletArea;
-    }
-
-    public void setToiletArea(String toiletArea) {
-        this.toiletArea = toiletArea;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

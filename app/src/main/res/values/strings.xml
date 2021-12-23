@@ -7,11 +7,11 @@
     <string name="bm_poo4">물같은 변</string>
 
     <!--naver 검색API -->
-    <string name="naver_app_clientId">NiVm1_ByHaizl5xTdqjv</string>
-    <string name="naver_app_clientSecret">PFp8vbL8Gm</string>
+    <string name="naver_app_clientId">9Aogpz4Uf2D0NvVhOl46</string>
+    <string name="naver_app_clientSecret">9DsXRCZi7h</string>
 
     <string name="google_api_key">AIzaSyBRzAHVP1cjwQsooJ2PGwLrSsvbrCbNcAo</string>
 
-    <!-- 공공 데이터 : 화장실 API -->
-    <string name="toilet_api_link">http://openapi.gimje.go.kr/rest/toilet?ServiceKey=2JZBvMKM7VNypH9wDEArOt4pM8UurYE%2BjapRRTtyqori77FqgnNeTtkC8ehwywAP5HwFCx%2BlwPE8oHi%2FFPLctQ%3D%3D</string>
+    <!-- 서울시 화장실 API -->
+    <string name="seoul_toilet">6151457a456c75633538597a546f6f</string>
 </resources>
