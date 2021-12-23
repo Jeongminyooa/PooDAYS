@@ -33,7 +33,8 @@ public class PooNetworkManager {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    public String downloadNaverBlog(String address, String keyword) {
+    // 네이버 네트워크
+    public String downloadNaverContents(String address, String keyword) {
         HttpURLConnection conn = null;
         InputStream stream = null;
         String result = null;
@@ -64,9 +65,9 @@ public class PooNetworkManager {
             if (conn != null) conn.disconnect();
         }
 
-        Log.d("sdasdasd", result);
         return result;
     }
+
     /* 주소(address)에 접속하여 문자열 데이터를 수신한 후 반환 */
     public String downloadContents(String address) {
         HttpURLConnection conn = null;
@@ -87,7 +88,6 @@ public class PooNetworkManager {
             if (conn != null) conn.disconnect();
         }
 
-        Log.d("sdasdasd", result);
         return result;
     }
     /* InputStream을 전달받아 문자열로 변환 후 반환 */
@@ -122,7 +122,6 @@ public class PooNetworkManager {
         conn.setConnectTimeout(3000);
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
-
 
         if (conn.getResponseCode() != HttpsURLConnection.HTTP_OK) {
             throw new IOException("HTTP error code: " + conn.getResponseCode());
