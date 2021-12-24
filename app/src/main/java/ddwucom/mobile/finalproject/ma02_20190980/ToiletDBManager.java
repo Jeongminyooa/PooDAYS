@@ -37,4 +37,27 @@ public class ToiletDBManager {
         if(result > 0) return true;
         else return false;
     }
+
+    // id로 북마크 정보 가져오기
+    public BookMarkDTO getBookMarkById(long _id) {
+        SQLiteDatabase db = toiletDBHelper.getReadableDatabase();
+
+        String selection = ToiletDBHelper.COL_ID +"=?";
+        String[] selectAtgs = new String[] { String.valueOf(_id) };
+
+        Cursor cursor = db.query(ToiletDBHelper.TABLE_NAME, null, selection, selectAtgs, null, null, null, null);
+
+        BookMarkDTO dto = new BookMarkDTO();
+        if(cursor.moveToNext()) {
+            dto.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_ID)));
+            dto.setName(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_NAME)));
+            dto.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_ADDRESS)));
+            dto.setImage(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_IMAGE)));
+            dto.setMemo(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_MEMO)));
+        }
+
+        toiletDBHelper.close();
+        return dto;
+    }
+
 }

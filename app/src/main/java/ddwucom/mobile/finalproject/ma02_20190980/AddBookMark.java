@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.MediaStore;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -66,6 +67,9 @@ public class AddBookMark extends AppCompatActivity {
         etBookMarkMemo = findViewById(R.id.etBookMarkMemo);
         ivBookMarkImage= (ImageView) findViewById(R.id.ivAddImage);
 
+        // 주소가 길면 스크롤 하도록
+        tvBookMarkAddress.setMovementMethod(new ScrollingMovementMethod());
+        
         dbManager = new ToiletDBManager(this);
 
         Intent intent = getIntent();
