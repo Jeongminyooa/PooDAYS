@@ -50,6 +50,7 @@ public class ToiletDBManager {
         BookMarkDTO dto = new BookMarkDTO();
         if(cursor.moveToNext()) {
             dto.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_ID)));
+            dto.setDate(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_DATE)));
             dto.setName(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_NAME)));
             dto.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_ADDRESS)));
             dto.setImage(cursor.getString(cursor.getColumnIndexOrThrow(ToiletDBHelper.COL_IMAGE)));
@@ -58,6 +59,21 @@ public class ToiletDBManager {
 
         toiletDBHelper.close();
         return dto;
+    }
+
+    // id 삭제
+    public boolean deleteBookMark(long _id) {
+        SQLiteDatabase db = toiletDBHelper.getWritableDatabase();
+
+        String whereClause = PooDBHelper.COL_ID + "=?";
+        String[] whereArgs = new String[] { String.valueOf(_id) };
+
+        int result = db.delete(ToiletDBHelper.TABLE_NAME, whereClause, whereArgs);
+
+        toiletDBHelper.close();
+
+        if(result > 0) return true;
+        else return false;
     }
 
 }

@@ -12,13 +12,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -26,6 +27,8 @@ public class InfoActivity extends AppCompatActivity {
     ArrayList<BlogDTO> blogList;
     InfoAdapter adapter;
     ListView listView;
+    ImageView ivShare;
+    EditText etShareText;
 
     PooNetworkManager networkManager;
     NaverBlogXmlParser parser;
@@ -39,6 +42,9 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         listView = findViewById(R.id.lvInfo);
+        ivShare = findViewById(R.id.ivShare);
+        etShareText = findViewById(R.id.etShareText);
+
         blogList = new ArrayList<>();
         networkManager = new PooNetworkManager(this);
         parser = new NaverBlogXmlParser();
@@ -66,6 +72,28 @@ public class InfoActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+        
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+                intent.setType("text/plain");
+
+                // Set default text message
+                // 카톡, 이메일, MMS 다 이걸로 설정 가능
+
+                String subject = "나만의 장 건강 비법을 공유하겠습니다";
+                String text = etShareText.getText().toString();
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+
+                // Title of intent
+                Intent chooser = Intent.createChooser(intent, "친구에게 공유하기");
+                startActivity(chooser);
+            }
+        });
     }
     public void onClick(View v) {
         switch(v.getId()) {
@@ -85,6 +113,22 @@ public class InfoActivity extends AppCompatActivity {
                 new NetworkAsyncTask().execute(query, "물똥 원인");
             }
                 break;
+            case R.id.btnSearchPoo5: {
+                new NetworkAsyncTask().execute(query, "건강 습관");
+            }
+            break;
+            case R.id.btnSearchPoo6: {
+                new NetworkAsyncTask().execute(query, "장내미생물");
+            }
+            break;
+            case R.id.btnSearchPoo7: {
+                new NetworkAsyncTask().execute(query, "식이섬유");
+            }
+            break;
+            case R.id.btnSearchPoo8: {
+                new NetworkAsyncTask().execute(query, "유산균");
+            }
+            break;
             case R.id.btnMain: {
                 // 건강 정보 공유하는 Activity
                 Intent intent = new Intent(this, MainActivity.class);

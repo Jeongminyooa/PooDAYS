@@ -14,8 +14,11 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +38,8 @@ public class ToiletMapActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
 
+    private LatLngResultReceiver latLngResultReceiver;
+
      LocationManager locationManager;
 
      PooNetworkManager networkManager;
@@ -49,10 +54,16 @@ public class ToiletMapActivity extends AppCompatActivity {
 
      public static final String TAG = "ToiletMapActivity";
 
+     private EditText etPlace;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toilet_map);
+
+        etPlace = findViewById(R.id.etPlace);
+
+        latLngResultReceiver = new LatLngResultReceiver(new Handler());
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -85,6 +96,8 @@ public class ToiletMapActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.btnSearchPlace:
+                String searchPlace = etPlace.getText().toString();
+                startLatLngService(searchPlace);
                 break;
             case R.id.btnBookmark:
                 Intent intent = new Intent(this, ToiletBookMark.class);
@@ -111,13 +124,24 @@ public class ToiletMapActivity extends AppCompatActivity {
             mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
+                    if(marker.getTitle().equals("검색 위치")) {
+                        return;
+                    }
                     ToiletDTO dto = (ToiletDTO) marker.getTag();
-
-                    Log.d(TAG, dto.getToiletName() + " 으으으");
 
                     Intent intent = new Intent(ToiletMapActivity.this, AddBookMark.class);
                     intent.putExtra("toiletData", dto);
                     startActivity(intent);
+                }
+            });
+
+            mGoogleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                @Override
+                public boolean onMyLocationButtonClick() {
+                    if(checkPermission())
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, locationListener);
+
+                    return false;
                 }
             });
         }
@@ -132,11 +156,11 @@ public class ToiletMapActivity extends AppCompatActivity {
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 17));
 
             // 근처 화장실 정보 가져와 마커로 표시하는 메소드
-           getToiletInfo();
+           getToiletInfo(currentLoc.latitude, currentLoc.longitude);
         }
     };
 
-    public void getToiletInfo() {
+    public void getToiletInfo(double latitude, double longitude) {
         // 기존 마커는 삭제
         for(Marker marker : markerList) {
             marker.remove();
@@ -146,11 +170,11 @@ public class ToiletMapActivity extends AppCompatActivity {
         ArrayList<ToiletDTO> currentToilet = new ArrayList<ToiletDTO>();
         for(ToiletDTO dto : resultList) {
             // 현재 위치의 경도&위도와 화장실의 위도 경도 계산해서 일정 거리라면 어레이리스트(새로 만들어)에 추가
-            int distance = getDistance(currentLoc.latitude, dto.getLatitude(), currentLoc.longitude, dto.getLongitude());
+            int distance = getDistance(latitude, dto.getLatitude(), longitude, dto.getLongitude());
 
             Log.d(TAG, "위치 " + distance);
-            // 현재 위치와 화장실의 위치가 1000m 이내라면
-            if(distance <= 1000) {
+            // 현재 위치와 화장실의 위치가 500m 이내라면
+            if(distance <= 500) {
                 currentToilet.add(dto);
             }
         }
@@ -266,6 +290,56 @@ public class ToiletMapActivity extends AppCompatActivity {
                     Toast.makeText(this, "위치 권환 미획득", Toast.LENGTH_SHORT).show();
                 }
                 return;
+        }
+    }
+
+    /* 역 지오코딩 :  주소 → 위도/경도 변환 IntentService 실행 */
+    private void startLatLngService(String address) {
+        Intent intent = new Intent(this, FetchLatLngIntentService.class);
+        intent.putExtra(Constants.RECEIVER, latLngResultReceiver);
+        intent.putExtra(Constants.ADDRESS_DATA_EXTRA, address);
+        startService(intent);
+    }
+
+    /* 주소 → 위도/경도 변환 ResultReceiver */
+    // 검색 위치 처리
+    class LatLngResultReceiver extends ResultReceiver {
+        public LatLngResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            double lat;
+            double lng;
+            ArrayList<LatLng> latLngList = null;
+
+            if (resultCode == Constants.SUCCESS_RESULT) {
+                if (resultData == null) return;
+
+                latLngList = (ArrayList<LatLng>) resultData.getSerializable(Constants.RESULT_DATA_KEY);
+
+                if (latLngList == null) {
+                    Toast.makeText(ToiletMapActivity.this, "위치 정보를 찾지 못했습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // 위도와 경도로 처리
+                    LatLng latlng = latLngList.get(0);
+
+                    locationManager.removeUpdates(locationListener);
+
+                    getToiletInfo(latlng.latitude, latlng.longitude);
+
+                    Log.d(TAG, "현재 위치 정보 가져옴!" + latlng.latitude);
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17));
+                    MarkerOptions searchMarkerOption = new MarkerOptions();
+
+                    searchMarkerOption.position(latlng);
+                    searchMarkerOption.title("검색 위치");
+                    searchMarkerOption.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                    markerList.add(mGoogleMap.addMarker(searchMarkerOption));
+                }
+            }
         }
     }
 }
