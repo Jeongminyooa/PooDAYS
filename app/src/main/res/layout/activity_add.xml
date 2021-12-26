@@ -34,7 +34,7 @@
             android:gravity="center"
             android:padding="10px"
             android:text="배변 상태 기록 추가하기"
-            android:textColor="@color/white"
+            android:textColor="@color/low"
             android:textSize="20sp" />
 
         <TextView
@@ -75,7 +75,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="기록 날짜"
-                    android:textColor="@color/dark_brown"
+                    android:padding="10dp"
+                    android:textColor="@color/brown"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -113,7 +114,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="오눌 하루 기분은 어떠세요?"
-                android:textColor="@color/dark_brown" />
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textColor="@color/brown" />
 
             <RadioGroup
                 android:id="@+id/rgCondition"
@@ -162,7 +165,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="오늘 운동을 하셨나요?"
-                android:textColor="@color/dark_brown" />
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textColor="@color/brown" />
 
             <RadioGroup
                 android:id="@+id/rgHealth"
@@ -199,7 +204,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="배변 활동이 있으셨나요?"
-                android:textColor="@color/dark_brown" />
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textColor="@color/brown" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -246,8 +253,10 @@
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     android:text="배변 상태는 어떠신가요?"
-                    android:textColor="@color/dark_brown"
+                    android:padding="10dp"
+                    android:textColor="@color/brown"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -327,8 +336,10 @@
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     android:text="배변 시간"
-                    android:textColor="@color/dark_brown" />
+                    android:padding="10dp"
+                    android:textColor="@color/brown" />
 
                 <EditText
                     android:id="@+id/etTime"
@@ -349,7 +360,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="잔변감"
-                    android:textColor="@color/dark_brown" />
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:textColor="@color/brown" />
 
                 <RadioGroup
                     android:id="@+id/rgSmallBM"

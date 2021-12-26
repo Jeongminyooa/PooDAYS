@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="10px"
-                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+                app:srcCompat="@mipmap/baseline_exit_to_app_white_24" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:padding="10px"
                 android:text="화장실 즐겨찾기 추가하기"
-                android:textColor="@color/white"
+                android:textColor="@color/low"
                 android:textSize="20sp" />
 
             <TextView
@@ -174,10 +174,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="사진을 클릭하면 카메라를 사용할 수 있습니다 :)"
+            android:background="@color/dark_brown"
+            android:textColor="@color/low"
             android:gravity="center"
             android:padding="10dp"
-            android:textColor="@color/dark_brown" />
+            android:text="사진을 클릭하면 카메라를 사용할 수 있습니다 :)" />
 
         <ImageView
             android:id="@+id/ivAddImage"

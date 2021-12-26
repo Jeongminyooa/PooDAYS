@@ -33,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/dark_brown"
-            android:textColor="@color/low"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/dark_brown"
             android:onClick="onClick"
             android:text="기록" />
 
@@ -43,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/dark_brown"
+            android:backgroundTint="@color/dark_brown"
+            android:textColor="@color/low"
             android:onClick="onClick"
             android:text="건강정보" />
 
@@ -76,74 +76,178 @@
         android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnSearchPoo1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/low"
+            android:background="@drawable/hash_tag_button_style"
             android:onClick="onClick"
-            android:text="딱딱한 변"
-            android:textColor="@color/dark_brown" />
+            android:text="#딱딱한변"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnSearchPoo2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/low"
+            android:background="@drawable/hash_tag_button_style"
             android:onClick="onClick"
-            android:text="촉촉한 변"
-            android:textColor="@color/dark_brown" />
+            android:text="#촉촉한변"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnSearchPoo3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/low"
+            android:background="@drawable/hash_tag_button_style"
             android:onClick="onClick"
-            android:text="진흙같은 변"
-            android:textColor="@color/dark_brown" />
+            android:text="#진흙같은변"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnSearchPoo4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/low"
+            android:background="@drawable/hash_tag_button_style"
             android:onClick="onClick"
-            android:text="물같은 변"
-            android:textColor="@color/dark_brown" />
+            android:text="#물같은변"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lvInfo"
         android:layout_width="match_parent"
-        android:layout_height="428dp"
+        android:layout_height="415dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="아래 버튼을 누르면 \n해당 변에 대한 정보가 검색됩니다!"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:padding="10px"
+        android:text="장 건강 추천 해시태그"
         android:textColor="@color/low"
         android:textSize="20sp"
-        android:padding="10px"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <android.widget.Button
+            android:id="@+id/btnSearchPoo5"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/hash_tag_button_style"
+            android:onClick="onClick"
+            android:text="#건강습관"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
+
+        <android.widget.Button
+            android:id="@+id/btnSearchPoo6"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/hash_tag_button_style"
+            android:onClick="onClick"
+            android:text="#장내미생물"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
+
+        <android.widget.Button
+            android:id="@+id/btnSearchPoo7"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/hash_tag_button_style"
+            android:onClick="onClick"
+            android:text="#식이섬유"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
+
+        <android.widget.Button
+            android:id="@+id/btnSearchPoo8"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/hash_tag_button_style"
+            android:onClick="onClick"
+            android:text="#유산균"
+            android:textColor="@color/low"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etShareText"
+        android:layout_width="336dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/radius_background"
+        android:ems="10"
+        android:hint="ex 유산균 먹기, 새벽 운동하기.."
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="나만의 장 건강 습관을 공유하세요!"
+        android:textColor="@color/low"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvInfo" />
+
+    <ImageView
+        android:id="@+id/ivShare"
+        android:layout_width="30dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toEndOf="@+id/etShareText"
+        app:layout_constraintTop_toBottomOf="@+id/lvInfo"
+        app:srcCompat="@mipmap/baseline_ios_share_white_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

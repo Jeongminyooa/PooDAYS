@@ -23,10 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:paddingLeft="30dp"
+            android:paddingLeft="100dp"
             android:paddingBottom="20dp"
             android:text="오늘 날짜"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvIntro"
@@ -37,6 +38,7 @@
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
+            android:textStyle="normal"
             android:text="반갑습니다. 이름 님!\n\n오늘은 @@ 하셨군요!" />
 
 
