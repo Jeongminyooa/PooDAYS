@@ -15,7 +15,7 @@
         android:background="@color/dark_brown"
         android:padding="10dp"
         android:text="post description"
-        android:textColor="@color/white"
+        android:textColor="@color/low"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPostTitle" />
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="28dp"
-        android:text="postTile"
+        android:text="postTitle"
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toTopOf="parent" />
 

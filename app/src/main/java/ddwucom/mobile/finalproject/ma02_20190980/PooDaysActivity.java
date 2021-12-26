@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -64,6 +65,55 @@ public class PooDaysActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String todayDate = nYear + "-" + nMon + "-" + nDay;
+        PooDTO todayDTO = pooDBManager.findTodayBM(todayDate);
+
+        tvTodayDate.setText(nYear + "년 " + nMon + "월 " + nDay + "일");
+
+        if(todayDTO.getIsPoo() == -1) { // 대변 기록 없는 경우
+            tvIntro.setText("반갑습니다!\n\n" + "오늘의 기록도 추가해주세요!");
+        } else if(todayDTO.getIsPoo() == 0) { // 대변 기록은 있으나, 대변을 보지 않은 경우
+            tvIntro.setText("반갑습니다!\n\n" + "대변을 보기 위해 \n장에 좋은 음식을 섭취해보세요!");
+        } else {
+            tvIntro.setText("반갑습니다!\n\n" + "오늘은 " + todayDTO.getBM() + " 하셨군요!");
+        }
+
+        // 달력에 배변 여부에 따라 표시
+        CalendarDay calendarDay = materialCalendarView.getSelectedDate();
+        int year = calendarDay.getYear();
+        int month = calendarDay.getMonth() + 1;
+
+        String queryDate = year + "-" + month;
+        ArrayList<PooDTO> pooList =  pooDBManager.findMonthIsPoo(queryDate);
+
+        ArrayList<CalendarDay> dates = new ArrayList<>();
+
+        for(PooDTO record : pooList) {
+            if (record.getIsPoo() == 1) {
+                // 배변 O
+                try {
+                    String recordDate = record.getDate();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = simpleDateFormat.parse(recordDate);
+
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(date);
+
+                    CalendarDay day = CalendarDay.from(c);
+                    dates.add(day);
+
+                    materialCalendarView.addDecorators(new EventDecorator(getResources().getColor(R.color.dark_brown),
+                            dates));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.btnAdd: {
@@ -116,7 +166,7 @@ public class PooDaysActivity extends AppCompatActivity {
                 new TodayDecorator()
         );
 
-
+        // 달력에 배변 여부에 따라 표시
         CalendarDay calendarDay = materialCalendarView.getSelectedDate();
         int year = calendarDay.getYear();
         int month = calendarDay.getMonth() + 1;
@@ -128,6 +178,7 @@ public class PooDaysActivity extends AppCompatActivity {
 
         for(PooDTO record : pooList) {
             if(record.getIsPoo() == 1) {
+                // 배변 O
                 try {
                     String recordDate = record.getDate();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -138,13 +189,15 @@ public class PooDaysActivity extends AppCompatActivity {
 
                     CalendarDay day = CalendarDay.from(c);
                     dates.add(day);
+
+                    materialCalendarView.addDecorators(new EventDecorator(getResources().getColor(R.color.dark_brown),
+                            dates));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
         }
-        materialCalendarView.addDecorators(new EventDecorator(getResources().getColor(R.color.dark_brown),
-                                            dates));
+
 
         // 달이 바뀌어도 표시가 보임
         materialCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
@@ -189,10 +242,21 @@ public class PooDaysActivity extends AppCompatActivity {
                 int month = date.getMonth() + 1;
                 int day = date.getDay();
 
-                String searchDate = year + "-" + month + "-" + day;
+                String month_String = String.valueOf(month);
+                String day_String = String.valueOf(day);
+
+                if(day < 10) {
+                    day_String = "0" + day;
+                }
+
+                if(month < 10) {
+                    month_String = "0" + month;
+                }
+                String searchDate = year + "-" + month_String + "-" + day_String;
 
                 int search_id = pooDBManager.findIdByDate(searchDate);
 
+                Log.d(TAG, search_id + searchDate);
                 if(search_id != 0) {
                     Intent intent = new Intent(PooDaysActivity.this, UpdateActivity.class);
                     PooDTO dto = pooDBManager.getPooById(search_id);

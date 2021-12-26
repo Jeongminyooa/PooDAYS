@@ -51,8 +51,8 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="411dp"
-        android:layout_height="580dp"
+        android:layout_width="match_parent"
+        android:layout_height="673dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
@@ -74,8 +74,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="기록 날짜"
                     android:padding="10dp"
+                    android:text="기록 날짜"
                     android:textColor="@color/brown"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -106,17 +106,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="@color/low"
-                ></View>
+                android:background="@color/low"></View>
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="오눌 하루 기분은 어떠세요?"
-                android:textSize="18sp"
                 android:padding="10dp"
-                android:textColor="@color/brown" />
+                android:text="오눌 하루 기분은 어떠세요?"
+                android:textColor="@color/brown"
+                android:textSize="18sp" />
 
             <RadioGroup
                 android:id="@+id/rgCondition"
@@ -157,17 +156,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="@color/low"
-                ></View>
+                android:background="@color/low"></View>
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="오늘 운동을 하셨나요?"
-                android:textSize="18sp"
                 android:padding="10dp"
-                android:textColor="@color/brown" />
+                android:text="오늘 운동을 하셨나요?"
+                android:textColor="@color/brown"
+                android:textSize="18sp" />
 
             <RadioGroup
                 android:id="@+id/rgHealth"
@@ -196,17 +194,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="@color/low"
-                ></View>
+                android:background="@color/low"></View>
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="배변 활동이 있으셨나요?"
-                android:textSize="18sp"
                 android:padding="10dp"
-                android:textColor="@color/brown" />
+                android:text="배변 활동이 있으셨나요?"
+                android:textColor="@color/brown"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -246,17 +243,16 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2px"
-                    android:background="@color/low"
-                    ></View>
+                    android:background="@color/low"></View>
 
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="배변 상태는 어떠신가요?"
                     android:padding="10dp"
+                    android:text="배변 상태는 어떠신가요?"
                     android:textColor="@color/brown"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -329,17 +325,16 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2px"
-                    android:background="@color/low"
-                    ></View>
+                    android:background="@color/low"></View>
 
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="배변 시간"
                     android:padding="10dp"
-                    android:textColor="@color/brown" />
+                    android:text="배변 시간"
+                    android:textColor="@color/brown"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/etTime"
@@ -352,17 +347,16 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2px"
-                    android:background="@color/low"
-                    ></View>
+                    android:background="@color/low"></View>
 
                 <TextView
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="잔변감"
-                    android:textSize="18sp"
                     android:padding="10dp"
-                    android:textColor="@color/brown" />
+                    android:text="잔변감"
+                    android:textColor="@color/brown"
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/rgSmallBM"

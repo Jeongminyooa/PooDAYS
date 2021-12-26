@@ -40,7 +40,7 @@
 
                 <EditText
                     android:id="@+id/etPlace"
-                    android:layout_width="342dp"
+                    android:layout_width="323dp"
                     android:layout_height="match_parent"
                     android:ems="10"
                     android:hint="도로명 주소 기입"
@@ -48,7 +48,7 @@
 
                 <Button
                     android:id="@+id/btnSearchPlace"
-                    android:layout_width="156dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/dark_brown"
@@ -70,9 +70,9 @@
             android:id="@+id/btnBookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="93dp"
             android:layout_marginLeft="180dp"
+            android:layout_marginTop="93dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/dark_brown"
             android:drawableRight="@mipmap/baseline_bookmark_border_white_24"
             android:onClick="onClick"

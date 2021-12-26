@@ -23,9 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:paddingLeft="100dp"
-            android:paddingBottom="20dp"
-            android:text="오늘 날짜"
+            android:paddingLeft="55dp"
+            android:paddingBottom="10dp"
+            android:text="20@@년 @@월 @@일"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -38,8 +38,8 @@
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:textStyle="normal"
-            android:text="반갑습니다. 이름 님!\n\n오늘은 @@ 하셨군요!" />
+            android:text="반갑습니다!!\n\n오늘은 @@ 하셨군요!"
+            android:textStyle="normal" />
 
 
     </LinearLayout>
@@ -60,14 +60,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="나의 장 한 눈에 보기"
+            android:text="Poo Calendar"
             android:textColor="@color/dark_brown"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="배변 상태 기록이 있다면 표시됩니다." />
+
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
-            android:layout_width="314dp"
-            android:layout_height="282dp"
+            android:layout_width="337dp"
+            android:layout_height="312dp"
             android:layout_gravity="center"
             app:mcv_selectionColor="@color/brown"
             app:mcv_showOtherDates="all" />

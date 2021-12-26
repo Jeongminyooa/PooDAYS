@@ -125,16 +125,15 @@ public class PooDBManager {
         PooDTO dto = new PooDTO();
 
         // 오늘 기록이 없다면
-        if (cursor == null) {
-            dto.setIsPoo(-1);
-        } else {
-            if(cursor.moveToNext()) {
-                // 가져오는 코드 작성!
-                dto.setIsPoo(cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_ISPOO)));
-                if(dto.getIsPoo() == 1)
-                    dto.setBM(cursor.getString(cursor.getColumnIndexOrThrow(PooDBHelper.COL_BM)));
-            }
+        dto.setIsPoo(-1);
+
+        if(cursor.moveToNext()) {
+            // 가져오는 코드 작성!
+            dto.setIsPoo(cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_ISPOO)));
+            if(dto.getIsPoo() == 1)
+                dto.setBM(cursor.getString(cursor.getColumnIndexOrThrow(PooDBHelper.COL_BM)));
         }
+
         pooDBHelper.close();
         return dto;
     }
@@ -170,15 +169,12 @@ public class PooDBManager {
 
         PooDTO dto = new PooDTO();
 
-        // 기록이 없다면
-        if (cursor == null) {
-            return 0;
-        } else {
-            if(cursor.moveToNext()) {
+
+        if(cursor.moveToNext()) {
                 // 가져오는 코드 작성!
-                return cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_ID));
-            }
+            return cursor.getInt(cursor.getColumnIndexOrThrow(PooDBHelper.COL_ID));
         }
+
         pooDBHelper.close();
         return 0;
     }

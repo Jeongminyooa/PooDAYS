@@ -96,13 +96,19 @@ public class RecordActivity extends AppCompatActivity {
                 // 상태 기록 확인하는 Activity
                 Toast.makeText(this, "기록 확인 페이지에 접속해있습니다.", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btnInfo:
+            case R.id.btnInfo: {
                 // 건강 정보 공유하는 Activity
+                Intent intent = new Intent(this, InfoActivity.class);
+                startActivity(intent);
                 break;
+            }
 
-            case R.id.btnMap:
+            case R.id.btnMap: {
                 // 화장실 맵 API Activity
+                Intent intent = new Intent(this, ToiletMapActivity.class);
+                startActivity(intent);
                 break;
+            }
         }
     }
 

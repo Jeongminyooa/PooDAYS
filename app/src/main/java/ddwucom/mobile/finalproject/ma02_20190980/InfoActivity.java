@@ -190,18 +190,5 @@ public class InfoActivity extends AppCompatActivity {
 
     }
 
-    // SNS에 공유 : 영양제나 건강 꿀팁들
-    private void shareTwitter() {
-
-        try {
-            String sharedText = String.format("http://twitter.com/intent/tweet?text=%s",
-                    URLEncoder.encode("공유할 텍스트 입력", "utf-8"));
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharedText));
-            startActivity(intent);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }
