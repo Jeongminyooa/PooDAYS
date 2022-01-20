@@ -7,9 +7,6 @@
 ### 기능 설명
 ![PooDAYS_COVER](https://user-images.githubusercontent.com/78305431/150355542-13598316-c966-4422-8434-8b171f824460.jpg)
 
-<img src="https://user-images.githubusercontent.com/78305431/150355542-13598316-c966-4422-8434-8b171f824460.jpg" alt="ss" width="200px" />
-
-
 - [서울시 열린데이터 광장](https://data.seoul.go.kr/)에서 제공하는 서울시 공중 화장실 정보 OPEN API를 활용 :point_right: 주변 공중 화장실 위치 제공 지도 기능을 구현하였습니다.
 - [네이버 개발자 센터](https://developers.naver.com/main/)에서 제공하는 블로그 검색 OPEN API를 활용 :point_right: 장 건강 해시태그 검색 기능을 구현하였습니다.
 - [Material Calendar View 라이브러리](https://github.com/prolificinteractive/material-calendarview)를 활용 :point_right: 한 눈에 보는 배변 달력 기능을 구현하였습니다.
