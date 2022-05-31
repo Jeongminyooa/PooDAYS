@@ -6,12 +6,5 @@
     <string name="bm_poo3">진흙같은 변</string>
     <string name="bm_poo4">물같은 변</string>
 
-    <!--naver 검색API -->
-    <string name="naver_app_clientId">9Aogpz4Uf2D0NvVhOl46</string>
-    <string name="naver_app_clientSecret">9DsXRCZi7h</string>
-
-    <string name="google_api_key">AIzaSyBRzAHVP1cjwQsooJ2PGwLrSsvbrCbNcAo</string>
-
-    <!-- 서울시 화장실 API -->
-    <string name="seoul_toilet">6151457a456c75633538597a546f6f</string>
+   
 </resources>
